@@ -1,6 +1,6 @@
 const theme = {
   color: {
-    firstMedium: "#2EEC71", // medium green
+    firstMedium: "#2ECC71", // medium green
     secondyClear: "#FFFFFF", // white
     secondyLight: "#F1F2F6", // light gray
     secondyDark: "#333333", // dark gray

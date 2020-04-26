@@ -637,6 +637,7 @@ const globalStyles = createGlobalStyle`
   html,
   body {
     overflow-x: hidden;
+    background-color: #F1F2F6;
   }
 `
 export default globalStyles

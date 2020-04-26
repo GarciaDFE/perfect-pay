@@ -1,36 +1,42 @@
 import React from "react";
-import { useStaticQuery, graphql, Link } from 'gatsby'
-import Img from "gatsby-image"
-import { Title } from "./styles"
+import { Link } from 'gatsby'
+// import { } from "./styles"
 
 import Layout from "../components/Layout";
 import SEO from "../components/seo"
 
-const IndexPage = () => {
+import Container from "../objects/Container"
+import MainHeader from "../components/MainHeader"
+import ShopHeader from "../components/ShopHeader"
+import MainBow from "../objects/MainBow"
+import ShowCase from "../components/ShowCase"
+import CardProduct from "../components/CardProduct"
+import MainFooter from "../components/MainFooter"
 
-  const bkgImage = useStaticQuery(
-    graphql`
-      query {
-        file(relativePath: { eq: "bkg-template.jpg" }) {
-          childImageSharp {
-            fluid(maxWidth: 1200) {
-              ...GatsbyImageSharpFluid_tracedSVG
-            }
-          }
-        }
-      }`
-  )
+const IndexPage = () => {
 
   return (
     <Layout>
       <SEO title="Home"/>
+      <MainHeader />
+      <Container>
+        <ShopHeader />
+      </Container>
+      <Container>
+        <MainBow value="90000000000"/>
+      </Container>
+      <Container>
+        <ShowCase>
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+        </ShowCase>
+      </Container>
+      <MainFooter />
       <Link to="/About">About</Link>
-      <Img 
-        fluid={bkgImage.file.childImageSharp.fluid}
-        alt="exemplo imagem fundo"
-        style={{ maxWidth: "1200px", margin: "0 auto" }}
-      />
-      <Title>.:. Projeto Web Gatsby JS .:.</Title>
     </Layout>
   )
 
