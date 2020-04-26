@@ -19,15 +19,15 @@ const Content = styled.h1`
    margin: 0;
 `
 
-const Spend = styled(Content)`
-   margin-right: 10px;
-`
+// const Spend = styled(Content)`
+//    margin-right: 10px;
+// `
 
 
 const MainBow = ({ value }) => {
    return (
       <WrapContent>
-         <Content>$<Spend>{value}</Spend>left</Content>
+         <Content>$ {value} left</Content>
       </WrapContent>
    )
 }
