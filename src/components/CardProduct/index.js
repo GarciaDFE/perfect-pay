@@ -1,45 +1,30 @@
 import React from "react"
-import { useStaticQuery, graphql } from 'gatsby'
-import Img from "gatsby-image"
 
 import { WrapCard,
          WrapImage,
          Name,
          Value,
          WrapAction,
+         ButtonSell,
+         ButtonBuy,
          Unit } from "./styles"
 
-import ButtonAction from "../../objects/ButtonAction"
 
-const CardProduct = () => {
-
-   const { imgProduct } = useStaticQuery(
-      graphql`
-        query {
-          imgProduct: file(relativePath: { eq: "bigmac.jpg" }) {
-            childImageSharp {
-              fixed(width: 150) {
-                ...GatsbyImageSharpFixed_tracedSVG
-              }
-            }
-          }
-        }`
-    )
+const CardProduct = ({ onClickSell, classSell, onClickBuy, classBuy, amountUnit, valueUnit, name, classImage }) => {
 
    return (
       <WrapCard>
-         <WrapImage>
-            <Img   
-               fixed={imgProduct.childImageSharp.fixed}
-               alt="imagem do produto"
-            />
-         </WrapImage>
-         <Name>Big Mac</Name>
-         <Value>$2</Value>
+         <WrapImage className={classImage} />
+         <Name>{name}</Name>
+         <Value>${valueUnit}</Value>
          <WrapAction>
-            <ButtonAction>Sell</ButtonAction>
-            <Unit>0</Unit>
-            <ButtonAction className="-buy">Buy</ButtonAction>
+            <ButtonSell 
+               className={classSell}
+               onClick={onClickSell}>Sell</ButtonSell>
+            <Unit>{amountUnit}</Unit>
+            <ButtonBuy
+               className={classBuy}
+               onClick={onClickBuy}>Buy</ButtonBuy>
          </WrapAction>
       </WrapCard>
    )

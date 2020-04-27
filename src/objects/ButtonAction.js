@@ -10,24 +10,13 @@ const Button = styled.button`
    font-weight: 700;
    outline: none;
    cursor: pointer;
-   color: ${props => props.theme.color.secondyDark};
-   &.-sell {
-      background-color: ${props => props.theme.color.thirdMedium};
-      color: ${props => props.theme.color.secondyClear};
-   }
-   &.-buy {
-      background-color: ${props => props.theme.color.firstMedium};
-      color: ${props => props.theme.color.secondyClear};
-   }
-   &.-disabled {
-      background-color: ${props => props.theme.color.secondyLight};
-      color: ${props => props.theme.color.secondyDark}; 
-   }
+   background-color: ${props => props.theme.color.secondyLight};
+   color: ${props => props.theme.color.secondyDark}; 
 `
 
-const ButtonAction = ({ children, className="-disabled" }) => {
+const ButtonAction = ({ children, className="-disabled", onClick }) => {
    return (
-      <Button className={className}>{children}</Button>
+      <Button onClick={onClick} className={className}>{children}</Button>
    )
 }
 

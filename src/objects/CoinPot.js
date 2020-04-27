@@ -19,7 +19,7 @@ const Content = styled.h1`
    margin: 0;
 `
 
-const MainBow = ({ value }) => {
+const CoinPot = ({ value }) => {
    return (
       <WrapContent>
          <Content>${value} left</Content>
@@ -27,4 +27,4 @@ const MainBow = ({ value }) => {
    )
 }
 
-export default MainBow
+export default CoinPot
