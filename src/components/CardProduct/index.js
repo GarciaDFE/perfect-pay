@@ -10,10 +10,10 @@ import { WrapCard,
          Unit } from "./styles"
 
 
-const CardProduct = ({ onClickSell, classSell, onClickBuy, classBuy, amountUnit, valueUnit, name, classImage }) => {
+const CardProduct = ({ index, onClickSell, classSell, onClickBuy, classBuy, amountUnit, valueUnit, name, classImage }) => {
 
    return (
-      <WrapCard>
+      <WrapCard key={index}>
          <WrapImage className={classImage} />
          <Name>{name}</Name>
          <Value>${valueUnit}</Value>
