@@ -10,17 +10,31 @@ import Container from "../objects/Container"
 import MainHeader from "../components/MainHeader"
 import ShopHeader from "../components/ShopHeader"
 import CoinPot from "../objects/CoinPot"
-import ShowCase from "../components/ShowCase"
 import CardProduct from "../components/CardProduct"
+import ShowCase from "../components/ShowCase"
+import PurchaseItem from "../objects/PurchaseItem"
+import ShopCart from "../components/ShopCart"
 import MainFooter from "../components/MainFooter"
 
-import data from "./data"
+import data from "../content/data"
+const cart = [
+  {
+    "itemId": "01",
+    "itemName": "Big Mac",
+    "itemCount": 1  
+  },
+  {
+    "itemId": "02",
+    "itemName": "Book",
+    "itemCount": 2  
+  }
+]
 
 let valueUnit = 0
 
 const IndexPage = () => {
 
-  const [vlrPot, setVlrPot] = useState(100)
+  const [vlrPot, setVlrPot] = useState(90000000000)
 
   const handleClickSell = (index) => {
     const newCards = [...data]
@@ -43,6 +57,7 @@ const IndexPage = () => {
 
   const handleClickBuy = (index) => {
     const newCards = [...data]
+    let newItem = data[index]
     let amountUnit = newCards[index].amountUnit
     let classBuy = newCards[index].classBuy
     valueUnit = data[index].value
@@ -52,7 +67,9 @@ const IndexPage = () => {
     if (vlrPot > valueUnit) {
       newCards[index].classSell = "-actived"
       newCards[index].amountUnit = amountUnit + 1
-      setVlrPot(vlrPot - valueUnit)  
+      setVlrPot(vlrPot - valueUnit)
+
+      AddCart(newItem)
     } else if (vlrPot === valueUnit) {
       newCards[index].classSell = "-actived"
       newCards[index].amountUnit = amountUnit + 1
@@ -61,6 +78,15 @@ const IndexPage = () => {
     } else if (vlrPot < 0){
       newCards[index].classBuy = "-disabled"
     }
+  }
+
+  const AddCart = (newItem) => {
+    const pushItem = {
+      "itemId": `${newItem.id}`,
+      "itemName": `${newItem.name}`,
+      "itemCount": `${newItem.amountUnit}`
+    }
+    cart.push(pushItem)
   }
 
   return (
@@ -81,7 +107,7 @@ const IndexPage = () => {
               card.classBuy = "-disabled" 
             return (
               <CardProduct
-                key={index}
+                key={card.id}
                 name={card.name}
                 classImage={`-img${card.id}`}
                 valueUnit={card.value}
@@ -94,6 +120,19 @@ const IndexPage = () => {
             )
           })}
         </ShowCase>
+      </Container>
+      <Container>
+        <ShopCart>
+          {cart.map((item, index) => {
+            return(
+              <PurchaseItem 
+                itemId={item.itemId}
+                itemName={item.itemName}
+                itemCount={item.itemCount}
+              />
+            )
+          })}
+        </ShopCart>
       </Container>
       <MainFooter />
       <Link to="/About">About</Link>

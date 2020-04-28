@@ -11,6 +11,3 @@
 - OFFLINE -> add drop-in support for making site work offline e more resistant to bad network connections it creates a service worker for the site and loads into the client
 - SITEMAP -> create a sitemap for your site in production mode
 - PAGE-CREATOR -> automatically creates pages from React components in specified directories, any that lives in the specified pages folder/subfolders to generate a page and the following giles are automatically excluded and exclude custom patterns 
-
-### Recursos instalados posteriormente específicos para o projeto:
-- 
