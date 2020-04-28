@@ -17,18 +17,7 @@ import ShopCart from "../components/ShopCart"
 import MainFooter from "../components/MainFooter"
 
 import data from "../content/data"
-const cart = [
-  {
-    "itemId": "01",
-    "itemName": "Big Mac",
-    "itemCount": 1  
-  },
-  {
-    "itemId": "02",
-    "itemName": "Book",
-    "itemCount": 2  
-  }
-]
+const cart = []
 
 let valueUnit = 0
 
