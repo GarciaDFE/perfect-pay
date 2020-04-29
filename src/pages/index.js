@@ -17,7 +17,7 @@ import ShopCart from "../components/ShopCart"
 import MainFooter from "../components/MainFooter"
 
 import data from "../content/data"
-const cart = []
+let cart = []
 
 let valueUnit = 0
 
@@ -27,16 +27,19 @@ const IndexPage = () => {
 
   const handleClickSell = (index) => {
     const newCards = [...data]
+    let newItem = data[index]
     let amountUnit = newCards[index].amountUnit
     valueUnit = data[index].value
 
     if (amountUnit > 1) {
       newCards[index].amountUnit = amountUnit - 1
       setVlrPot(vlrPot + valueUnit)
+      RemoveCart(newItem, index)
     } 
     else if (amountUnit === 1) {
       newCards[index].amountUnit = amountUnit - 1
       setVlrPot(vlrPot + valueUnit)
+      RemoveCart(newItem, index)
       newCards[index].classSell = "-disabled"
     } else {
       newCards[index].classSell = "-disabled"
@@ -57,25 +60,49 @@ const IndexPage = () => {
       newCards[index].classSell = "-actived"
       newCards[index].amountUnit = amountUnit + 1
       setVlrPot(vlrPot - valueUnit)
-
-      AddCart(newItem)
+      AddCart(newItem, index)
     } else if (vlrPot === valueUnit) {
       newCards[index].classSell = "-actived"
       newCards[index].amountUnit = amountUnit + 1
       newCards[index].classBuy = "-disabled"
       setVlrPot(vlrPot - valueUnit)  
+      AddCart(newItem, index)
     } else if (vlrPot < 0){
       newCards[index].classBuy = "-disabled"
     }
   }
 
-  const AddCart = (newItem) => {
-    const pushItem = {
-      "itemId": `${newItem.id}`,
-      "itemName": `${newItem.name}`,
-      "itemCount": `${newItem.amountUnit}`
+  const AddCart = (newItem, key) => {
+    let foundId = false
+
+    if (cart.length > 0) {
+      for (let i=0; i < cart.length; i++) {
+        if (newItem.id === cart[i].itemId) {
+          cart[i].itemCount++
+          return foundId = true
+        } 
+      }
     }
-    cart.push(pushItem)
+    if (cart.length === 0 || !foundId) {
+      const pushItem = {
+        "itemId": `${newItem.id}`,
+        "itemName": `${newItem.name}`,
+        "itemCount": newItem.amountUnit
+      }
+      cart.push(pushItem)
+    }
+  }
+
+  const RemoveCart = (newItem, key) => {
+    for (let i=0; i < cart.length; i++) {
+      if (newItem.id === cart[i].itemId) {
+        if (cart[i].itemCount === 1) {
+          cart.splice(i, 1)
+        } else {
+          cart[i].itemCount--
+        }
+      } 
+    }
   }
 
   return (
@@ -91,29 +118,29 @@ const IndexPage = () => {
       <Container>
         <ShowCase>
           {data.map((card, index) => {
-            (vlrPot >= card.value) ? 
-              card.classBuy = "-actived" : 
-              card.classBuy = "-disabled" 
-            return (
-              <CardProduct
-                key={card.id}
-                name={card.name}
-                classImage={`-img${card.id}`}
-                valueUnit={card.value}
-                onClickSell={() => handleClickSell(index)}
-                classSell={card.classSell}
-                amountUnit={card.amountUnit}
-                onClickBuy={() => handleClickBuy(index)}
-                classBuy={card.classBuy}
-              />
-            )
-          })}
+              (vlrPot >= card.value) ? 
+                card.classBuy = "-actived" : 
+                card.classBuy = "-disabled" 
+              return (
+                <CardProduct
+                  key={card.id}
+                  name={card.name}
+                  classImage={`-img${card.id}`}
+                  valueUnit={card.value}
+                  onClickSell={() => handleClickSell(index)}
+                  classSell={card.classSell}
+                  amountUnit={card.amountUnit}
+                  onClickBuy={() => handleClickBuy(index)}
+                  classBuy={card.classBuy}
+                />
+              )
+           })}
         </ShowCase>
       </Container>
       <Container>
         <ShopCart>
           {cart.map((item, index) => {
-            return(
+            return (
               <PurchaseItem 
                 itemId={item.itemId}
                 itemName={item.itemName}
